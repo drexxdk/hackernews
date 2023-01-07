@@ -10,4 +10,4 @@ const HomePage = () => {
   );
 };
 
-export default Stories;
+export default HomePage;
