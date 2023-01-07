@@ -11,7 +11,11 @@ export default function RootLayout({ children }: { children: React.ReactNode }) 
         <SessionProviderWrapper>
           <QueryClientProviderWrapper>
             <Header />
-            <main className="grid min-h-screen w-full pt-header">{children}</main>
+            <main className="grid min-h-screen w-full pt-header">
+              <div className="flex px-container">
+                <div className="mx-auto w-full max-w-container py-4 @container">{children}</div>
+              </div>
+            </main>
           </QueryClientProviderWrapper>
         </SessionProviderWrapper>
       </body>

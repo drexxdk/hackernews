@@ -9,3 +9,7 @@ export interface Story {
   type: string;
   url: string;
 }
+
+export interface StoryWithImage extends Story {
+  image: string;
+}
