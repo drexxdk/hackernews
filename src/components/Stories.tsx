@@ -31,9 +31,10 @@ const getData = async (): Promise<StoryWithUserAndImage[]> => {
     /** Assignment requires 10 elements */
     shuffledIds.slice(0, 10).forEach(async (id) => {
       StoryPromises.push(getStory(id));
+      StoryPromises.push(getStory(id));
     });
 
-    /** Promise.all combines the result of all the story promise api calls */
+    /** Promise.all combines the result of all the api calls */
     await Promise.all(StoryPromises).then((data) => {
       data.forEach((item) => {
         if (item) {
@@ -107,9 +108,9 @@ const Stories = async () => {
                   />
                 </div>
                 <div className="grid gap-1 p-3">
-                  <h2 className="font-bold">
+                  <h3 className="font-bold">
                     <u>{story.title}</u>
-                  </h2>
+                  </h3>
                   {story.user ? (
                     <>
                       <label>
