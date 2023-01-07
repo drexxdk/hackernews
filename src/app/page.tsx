@@ -1,4 +1,4 @@
-import Stories from "@components/Stories";
+import Stories from '@components/Stories';
 
 const HomePage = () => {
   return (

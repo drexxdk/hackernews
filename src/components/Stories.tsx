@@ -1,6 +1,6 @@
-import { Story } from "@interfaces/story";
-import getStories from "@utils/data/getStories";
-import getStory from "@utils/data/getStory";
+import { Story } from '@interfaces/story';
+import getStories from '@utils/data/getStories';
+import getStory from '@utils/data/getStory';
 
 const getData = async (): Promise<Story[]> => {
   const ids = await getStories();
@@ -11,7 +11,7 @@ const getData = async (): Promise<Story[]> => {
     promises.push(getStory(id));
   });
 
-  let stories: Story[] = [];
+  const stories: Story[] = [];
 
   await Promise.all(promises).then((data) => {
     data.forEach((item) => (item ? stories.push(item) : null));

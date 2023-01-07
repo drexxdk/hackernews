@@ -1,4 +1,4 @@
-import LoginButton from "./LoginButton";
+import LoginButton from './LoginButton';
 
 const Header = () => {
   return (

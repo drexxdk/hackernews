@@ -1,4 +1,4 @@
-import axios, { AxiosError, RawAxiosRequestHeaders } from "axios";
+import axios, { AxiosError, RawAxiosRequestHeaders } from 'axios';
 
 /** Used for sending GET requests
  * @param baseURL The url for the specific API you want to send the request to
@@ -107,25 +107,21 @@ const handleError = (error: AxiosError) => {
   // TODO: Log error to Application Insights here
 
   if (error.response?.status === 401) {
-    console.warn("Unauthorized", error.message);
+    console.warn('Unauthorized', error.message);
   } else {
     throw error;
   }
-  console.warn("API failed", error);
+  console.warn('API failed', error);
 
   return undefined;
 };
 
 /** Method to set defaultHeaders and if user is logged in also sets authentication headers */
-const defaultHeaders = async (
-  useEncodedBody = false
-): Promise<RawAxiosRequestHeaders> => {
+const defaultHeaders = async (useEncodedBody = false): Promise<RawAxiosRequestHeaders> => {
   // const session = await getSession();
 
-  let headers: RawAxiosRequestHeaders = {
-    "Content-Type": useEncodedBody
-      ? "application/x-www-form-urlencoded"
-      : "application/json; charset=utf-8",
+  const headers: RawAxiosRequestHeaders = {
+    'Content-Type': useEncodedBody ? 'application/x-www-form-urlencoded' : 'application/json; charset=utf-8',
   };
 
   // if (session?.accessToken && session.custom) {

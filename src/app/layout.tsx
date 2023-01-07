@@ -1,13 +1,9 @@
-import Header from "@components/Header";
-import SessionProviderWrapper from "src/providers/SessionProviderWrapper";
-import QueryClientProviderWrapper from "../providers/QueryClientProviderWrapper";
-import "../styles/globals.scss";
+import Header from '@components/Header';
+import SessionProviderWrapper from 'src/providers/SessionProviderWrapper';
+import QueryClientProviderWrapper from '../providers/QueryClientProviderWrapper';
+import '../styles/globals.scss';
 
-export default function RootLayout({
-  children,
-}: {
-  children: React.ReactNode;
-}) {
+export default function RootLayout({ children }: { children: React.ReactNode }) {
   return (
     <html>
       <head />
