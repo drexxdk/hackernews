@@ -11,7 +11,7 @@ export default function RootLayout({ children }: { children: React.ReactNode }) 
         <SessionProviderWrapper>
           <QueryClientProviderWrapper>
             <Header />
-            <main>{children}</main>
+            <main className="grid min-h-screen w-full pt-header">{children}</main>
           </QueryClientProviderWrapper>
         </SessionProviderWrapper>
       </body>

@@ -1,6 +1,7 @@
 import { Story } from '@interfaces/story';
 import getStories from '@utils/data/getStories';
 import getStory from '@utils/data/getStory';
+import Link from 'next/link';
 
 const getData = async (): Promise<Story[]> => {
   const ids = await getStories();
@@ -29,7 +30,7 @@ const Stories = async () => {
         <ul>
           {stories.map((story, i) => (
             <li key={i}>
-              <label>{story.id}</label>
+              <Link href={`/story/${story.id}`}>{story.title}</Link>
             </li>
           ))}
         </ul>
