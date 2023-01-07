@@ -1,0 +1,43 @@
+{
+  "editor.formatOnSave": true,
+  "editor.codeActionsOnSave": {
+    "source.organizeImports": true
+  },
+  "[typescript]": {
+    "editor.defaultFormatter": "esbenp.prettier-vscode"
+  },
+  "[typescriptreact]": {
+    "editor.defaultFormatter": "esbenp.prettier-vscode"
+  },
+  "css.lint.unknownAtRules": "ignore",
+  "less.lint.unknownAtRules": "ignore",
+  "scss.lint.unknownAtRules": "ignore",
+  "editor.defaultFormatter": "esbenp.prettier-vscode",
+  "editor.linkedEditing": true,
+  "tailwindCSS.classAttributes": [
+    "class",
+    "className"
+  ],
+  "editor.quickSuggestions": {
+    "strings": true
+  },
+  "editor.tabSize": 2,
+  "editor.autoClosingQuotes": "always",
+  "tailwindCSS.experimental.classRegex": [
+    "cva\\(([^)]*)\\)",
+    ".*Styles",
+    "className"
+    // "[\"'`]([^\"'`]*).*?[\"'`]"
+  ],
+  "tailwindCSS.includeLanguages": {
+    "typescript": "javascript",
+    "typescriptreact": "javascript"
+  },
+  "console-ninja.outputMode": "In View",
+  "console-ninja.toolsToEnableSupportAutomaticallyFor": {
+    "live-server": true,
+    "live-preview": true
+  },
+  "typescript.tsdk": "node_modules\\typescript\\lib",
+  "typescript.enablePromptUseWorkspaceTsdk": true
+}

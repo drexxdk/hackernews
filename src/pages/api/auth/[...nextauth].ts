@@ -1,11 +1,16 @@
 import NextAuth, { type NextAuthOptions } from "next-auth";
-import DiscordProvider from "next-auth/providers/discord";
-
-import { env } from "../../../env/server.mjs";
+import GithubProvider from "next-auth/providers/github";
 
 export const authOptions: NextAuthOptions = {
   // Include user.id on session
   callbacks: {
+    async jwt({ token, account }) {
+      // Persist the OAuth access_token to the token right after signin
+      if (account) {
+        token.accessToken = account.access_token;
+      }
+      return token;
+    },
     session({ session, user }) {
       if (session.user) {
         session.user.id = user.id;
@@ -15,10 +20,15 @@ export const authOptions: NextAuthOptions = {
   },
   // Configure one or more authentication providers
   providers: [
-    DiscordProvider({
-      clientId: env.DISCORD_CLIENT_ID,
-      clientSecret: env.DISCORD_CLIENT_SECRET,
+    GithubProvider({
+      clientId: process.env.GITHUB_ID,
+      clientSecret: process.env.GITHUB_SECRET,
     }),
+    // DiscordProvider({
+    //   clientId: env.DISCORD_CLIENT_ID,
+    //   clientSecret: env.DISCORD_CLIENT_SECRET,
+    // }),
+
     /**
      * ...add more providers here
      *
