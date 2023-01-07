@@ -5,7 +5,7 @@ import '../styles/globals.scss';
 
 export default function RootLayout({ children }: { children: React.ReactNode }) {
   return (
-    <html>
+    <html lang="en">
       <head />
       <body className={`${process.env.NODE_ENV === 'development' ? 'debug-screens' : ''}`}>
         <SessionProviderWrapper>

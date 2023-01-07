@@ -93,9 +93,9 @@ const Stories = async () => {
                   />
                 </div>
                 <div className="grid gap-1 p-3">
-                  <h3 className="font-bold">
+                  <h2 className="font-bold">
                     <u>{story.title}</u>
-                  </h3>
+                  </h2>
                   {story.user ? (
                     <>
                       <label>
@@ -108,7 +108,7 @@ const Stories = async () => {
                   ) : null}
                   <label className="flex items-center gap-2">
                     Score:{' '}
-                    <span className="rounded-full bg-orange-600 px-3 py-1 font-bold text-white">{story.score}</span>
+                    <span className="rounded-full bg-orange-700 px-3 py-1 font-bold text-white">{story.score}</span>
                   </label>
                 </div>
               </Link>
