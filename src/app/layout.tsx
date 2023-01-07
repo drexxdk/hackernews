@@ -7,7 +7,7 @@ export default function RootLayout({ children }: { children: React.ReactNode }) 
   return (
     <html>
       <head />
-      <body>
+      <body className={`${process.env.NODE_ENV === 'development' ? 'debug-screens' : ''}`}>
         <SessionProviderWrapper>
           <QueryClientProviderWrapper>
             <Header />
