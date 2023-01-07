@@ -108,9 +108,9 @@ const Stories = async () => {
                   />
                 </div>
                 <div className="grid gap-1 p-3">
-                  <h3 className="font-bold">
+                  <h2 className="font-bold">
                     <u>{story.title}</u>
-                  </h3>
+                  </h2>
                   {story.user ? (
                     <>
                       <label>
