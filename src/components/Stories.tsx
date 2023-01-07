@@ -1,21 +1,25 @@
-import { Story, StoryWithImage } from '@interfaces/story';
+import { Story } from '@interfaces/story';
+import { StoryWithUserAndImage } from '@interfaces/storyWithUserAndImage';
+import { User } from '@interfaces/user';
 import getStories from '@utils/data/getStories';
 import getStory from '@utils/data/getStory';
-import { randomNumberBetween } from '@utils/randomNumberBetween';
+import getUser from '@utils/data/getUser';
+import randomNumberBetween from '@utils/randomNumberBetween';
 import Image from 'next/image';
 import Link from 'next/link';
 import H1 from './H1';
 
-const getData = async (): Promise<StoryWithImage[]> => {
+const getData = async (): Promise<StoryWithUserAndImage[]> => {
   const ids = await getStories();
-  const stories: StoryWithImage[] = [];
+
+  let stories: StoryWithUserAndImage[] = [];
 
   if (ids?.length) {
     /**
      * There is no endpoint to get multiple items in the same call,
      * so we need to make api call for each item
      *  */
-    const promises: Promise<Story | undefined>[] = [];
+    const StoryPromises: Promise<Story | undefined>[] = [];
 
     /**
      * Assignment requires 10 random elements.
@@ -25,23 +29,38 @@ const getData = async (): Promise<StoryWithImage[]> => {
 
     /** Assignment requires 10 elements */
     shuffledIds.slice(0, 10).forEach(async (id) => {
-      promises.push(getStory(id));
+      StoryPromises.push(getStory(id));
     });
 
     /** Promise.all combines the result of all the api calls */
-    await Promise.all(promises).then((data) => {
+    await Promise.all(StoryPromises).then((data) => {
       data.forEach((item) => {
         if (item) {
           /**
            * Api data doesn't contain image for the stories,
            * so I add a random image to each
            */
-          const storyWithImage: StoryWithImage = {
+          const storyWithUserAndImage: StoryWithUserAndImage = {
             ...item,
             image: `/assets/stories/${randomNumberBetween(1, 5)}.jpg`,
           };
-          stories.push(storyWithImage);
+
+          stories.push(storyWithUserAndImage);
         }
+      });
+    });
+
+    const UserPromises: Promise<User | undefined>[] = [];
+
+    stories.forEach((story) => {
+      UserPromises.push(getUser(story.by));
+    });
+
+    await Promise.all(UserPromises).then((data) => {
+      data.forEach((user) => {
+        stories = stories.map((story) => {
+          return { ...story, user: user };
+        });
       });
     });
   }
@@ -74,7 +93,19 @@ const Stories = async () => {
                   />
                 </div>
                 <div className="grid gap-1 p-3">
-                  <h3 className="font-bold">{story.title}</h3>
+                  <h3 className="font-bold">
+                    <u>{story.title}</u>
+                  </h3>
+                  {story.user ? (
+                    <>
+                      <label>
+                        <b>User:</b>: {story.user.id}
+                      </label>
+                      <label>
+                        <b>Karma</b>: {story.user.karma}
+                      </label>
+                    </>
+                  ) : null}
                   <label className="flex items-center gap-2">
                     Score:{' '}
                     <span className="rounded-full bg-orange-600 px-3 py-1 font-bold text-white">{story.score}</span>

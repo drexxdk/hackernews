@@ -4,7 +4,7 @@ import { signIn, signOut, useSession } from 'next-auth/react';
 import { ReactNode } from 'react';
 
 /** Not fully implemented */
-export default function Component() {
+const AuthButton = () => {
   const { data: session } = useSession();
   return (
     <div className="flex gap-2 bg-red-800 text-white">
@@ -22,7 +22,9 @@ export default function Component() {
       )}
     </div>
   );
-}
+};
+
+export default AuthButton;
 
 const Label = ({ children }: { children: ReactNode }) => {
   return <label className="hidden @xs:block">{children}</label>;
