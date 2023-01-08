@@ -34,7 +34,7 @@ const getData = async (): Promise<StoryWithUserAndImage[]> => {
       StoryPromises.push(getStory(id));
     });
 
-    /** Promise.all combines the result of all the api calls */
+    /** Promise.all combines the result of all the story promise api calls */
     await Promise.all(StoryPromises).then((data) => {
       data.forEach((item) => {
         if (item) {
