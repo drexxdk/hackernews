@@ -16,8 +16,9 @@ const getData = async (): Promise<StoryWithUserAndImage[]> => {
 
   if (ids?.length) {
     /**
-     * There is no endpoint to get multiple items in the same call,
-     * so we need to make api call for each item
+     * getStories() only contains ids, so we need to make additional api calls to get remaining data.
+     * There is no endpoint to get multiple stories in the same call,
+     * so we need to make api call for each story
      *  */
     const StoryPromises: Promise<Story | undefined>[] = [];
 
@@ -32,7 +33,7 @@ const getData = async (): Promise<StoryWithUserAndImage[]> => {
       StoryPromises.push(getStory(id));
     });
 
-    /** Promise.all combines the result of all the api calls */
+    /** Promise.all combines the result of all the story promise api calls */
     await Promise.all(StoryPromises).then((data) => {
       data.forEach((item) => {
         if (item) {
@@ -50,21 +51,34 @@ const getData = async (): Promise<StoryWithUserAndImage[]> => {
       });
     });
 
+    /**
+     * getStory() only contains by (id), so we need to make additional api calls to get remaining data.
+     * There is no endpoint to get multiple users in the same call,
+     * so we need to make api call for each user
+     *  */
     const UserPromises: Promise<User | undefined>[] = [];
 
-    stories.forEach((story) => {
-      UserPromises.push(getUser(story.by));
-    });
+    /**
+     * 1. get by (id)
+     * 2. remove dublicates
+     * 3. make get request
+     */
+    stories
+      .map((story) => story.by)
+      .filter((v, i, a) => a.indexOf(v) === i)
+      .forEach((id) => {
+        UserPromises.push(getUser(id));
+      });
 
-    await Promise.all(UserPromises).then((data) => {
-      data.forEach((user) => {
-        stories = stories.map((story) => {
-          return { ...story, user: user };
-        });
+    /** Promise.all combines the result of all the user promise api calls */
+    await Promise.all(UserPromises).then((users) => {
+      stories = stories.map((story) => {
+        return { ...story, user: users.find((user) => user?.id === story.by) };
       });
     });
   }
 
+  /** return stories sorted by score where highest score is first */
   return stories.sort((a, b) => b.score - a.score);
 };
 
