@@ -31,7 +31,6 @@ const getData = async (): Promise<StoryWithUserAndImage[]> => {
     /** Assignment requires 10 elements */
     shuffledIds.slice(0, 10).forEach(async (id) => {
       StoryPromises.push(getStory(id));
-      StoryPromises.push(getStory(id));
     });
 
     /** Promise.all combines the result of all the story promise api calls */
